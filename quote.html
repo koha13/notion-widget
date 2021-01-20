@@ -45,11 +45,6 @@
 	</head>
 	<body>
 		<blockquote id="quote">
-			Creativity is just connecting things. When you ask creative people how they did something,
-			they feel a little guilty because they didn't really do it, they just saw something. It seemed
-			obvious to them after a while. That's because they were able to connect experiences they've
-			had and synthesize new things.
-			<span id="author">Steve Jobs</span>
 		</blockquote>
 		<script>
 			var qs = (function (a) {
@@ -62,12 +57,25 @@
 				}
 				return b;
 			})(window.location.search.substr(1).split("&"));
-			let d = document.getElementById("quote");
-			let quote = qs["quote"];
-			if (qs["author"]) {
-				quote += `<span id="author">${qs["author"]}</span>`;
+			if (qs["quote"]) {
+				let d = document.getElementById("quote");
+				let quote = qs["quote"];
+				if (qs["author"]) {
+					quote += `<span id="author">${qs["author"]}</span>`;
+				}
+				d.innerHTML = quote;
+			} else {
+				fetch("https://api.quotable.io/random")
+					.then(function (response) {
+						return response.json();
+					})
+					.then(function (data) {
+            console.log(data);
+            let d = document.getElementById("quote");
+            let quote = `${data.content}<span id="author">${data.author}</span>`;
+            d.innerHTML = quote;
+					})
 			}
-			d.innerHTML = quote;
 		</script>
 	</body>
 </html>
