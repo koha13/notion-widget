@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);
+			blockquote {
+				font-size: 1.4em;
+				width: 60%;
+				margin: 50px auto;
+				font-family: Open Sans;
+				font-style: italic;
+				color: #555555;
+				padding: 1.2em 30px 1.2em 75px;
+				border-left: 8px solid #78c0a8;
+				line-height: 1.6;
+				position: relative;
+				background: #ededed;
+			}
+
+			blockquote::before {
+				font-family: Arial;
+				content: "\201C";
+				color: #78c0a8;
+				font-size: 4em;
+				position: absolute;
+				left: 10px;
+				top: -10px;
+			}
+
+			blockquote::after {
+				content: "";
+			}
+
+			blockquote span {
+				display: block;
+				color: #333333;
+				font-style: normal;
+				font-weight: bold;
+				margin-top: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<blockquote id="quote">
+			Creativity is just connecting things. When you ask creative people how they did something,
+			they feel a little guilty because they didn't really do it, they just saw something. It seemed
+			obvious to them after a while. That's because they were able to connect experiences they've
+			had and synthesize new things.
+			<span id="author">Steve Jobs</span>
+		</blockquote>
+		<script>
+			var qs = (function (a) {
+				if (a == "") return {};
+				var b = {};
+				for (var i = 0; i < a.length; ++i) {
+					var p = a[i].split("=", 2);
+					if (p.length == 1) b[p[0]] = "";
+					else b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+				}
+				return b;
+			})(window.location.search.substr(1).split("&"));
+			let d = document.getElementById("quote");
+			let quote = qs["quote"];
+			if (qs["author"]) {
+				quote += `<span id="author">${qs["author"]}</span>`;
+			}
+			d.innerHTML = quote;
+		</script>
+	</body>
+</html>
