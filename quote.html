@@ -43,9 +43,8 @@
 			}
 		</style>
 	</head>
-	<body style="background-color: transparent;">
-		<blockquote id="quote">
-		</blockquote>
+	<body id="body" style="background-color: transparent">
+		<blockquote id="quote"></blockquote>
 		<script>
 			var qs = (function (a) {
 				if (a == "") return {};
@@ -57,6 +56,9 @@
 				}
 				return b;
 			})(window.location.search.substr(1).split("&"));
+			if (qs["theme"] === "dark") {
+				document.getElementById("body").style.backgroundColor = "#2f3437";
+			}
 			if (qs["quote"]) {
 				let d = document.getElementById("quote");
 				let quote = qs["quote"];
@@ -70,10 +72,10 @@
 						return response.json();
 					})
 					.then(function (data) {
-            let d = document.getElementById("quote");
-            let quote = `${data.content}<span id="author">${data.author}</span>`;
-            d.innerHTML = quote;
-					})
+						let d = document.getElementById("quote");
+						let quote = `${data.content}<span id="author">${data.author}</span>`;
+						d.innerHTML = quote;
+					});
 			}
 		</script>
 	</body>
